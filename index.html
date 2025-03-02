@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Blockchain supply chain development</title>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5H4V19H20V5Z" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 9H20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 15H20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 5V19" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16 5V19" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h1>TransparentChain</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active" id="nav-dashboard">Dashboard</a></li>
+                <li><a href="#" id="nav-products">Products</a></li>
+                <li><a href="#" id="nav-stakeholders">Stakeholders</a></li>
+                <li><a href="#" id="nav-blockchain">Blockchain</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <div id="dashboard-panel">
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Total Products</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value" id="total-products">0</div>
+                </div>
+                <div>Tracked on blockchain</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Stakeholders</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value" id="total-stakeholders">0</div>
+                </div>
+                <div>Active network participants</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Blockchain Status</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-value" id="blockchain-status">Valid</div>
+                </div>
+                <div>Last verified: <span id="last-verified">Now</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Recent Transactions</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Product ID</th>
+                            <th>Action</th>
+                            <th>Location</th>
+                            <th>Handler</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-transactions">
+                        <!-- Transactions will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-panel" style="display: none;">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Product Tracker</div>
+            </div>
+            <div class="card-body">
+                <form id="product-search-form">
+                    <input type="text" id="product-id" placeholder="Enter Product ID (e.g., PROD001)">
+                    <button type="submit">Track Product</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="product-details" class="card" style="display: none;">
+            <div class="card-header">
+                <div class="card-title">Product Details</div>
+            </div>
+            <div class="card-body">
+                <div class="tab-container">
+                    <div class="tab-headers">
+                        <button class="tab-header active" data-tab="info">Information</button>
+                        <button class="tab-header" data-tab="timeline">Supply Chain Timeline</button>
+                        <button class="tab-header" data-tab="verification">Verification</button>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-panel active" id="info-panel">
+                            <div class="form-group">
+                                <label>Product ID</label>
+                                <div id="product-detail-id"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Product Name</label>
+                                <div id="product-detail-name"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Manufacturer</label>
+                                <div id="product-detail-manufacturer"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Current Owner</label>
+                                <div id="product-detail-current-owner"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Current Location</label>
+                                <div id="product-detail-current-location"></div>
+                            </div>
+                        </div>
+                        <div class="tab-panel" id="timeline-panel">
+                            <div class="product-timeline">
+                                <div class="timeline" id="product-timeline">
+                                    <!-- Timeline will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-panel" id="verification-panel">
+                            <div class="form-group">
+                                <label>Blockchain Verification</label>
+                                <div id="product-verification-status"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Blockchain Data</label>
+                                <div class="blockchain-info" id="product-blockchain-data">
+                                    <!-- Blockchain data will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="stakeholders-panel" style="display: none;">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Stakeholders</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Products</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stakeholders-list">
+                        <!-- Stakeholders will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card form-section">
+            <div class="form-title">Register New Stakeholder</div>
+            <form id="stakeholder-form">
+                <div class="form-group">
+                    <label for="stakeholder-id">Stakeholder ID</label>
+                    <input type="text" id="stakeholder-id" required placeholder="e.g., MAN002">
+                </div>
+                <div class="form-group">
+                    <label for="stakeholder-name">Name</label>
+                    <input type="text" id="stakeholder-name" required placeholder="Company Name">
+                </div>
+                <div class="form-group">
+                    <label for="stakeholder-role">Role</label>
+                    <select id="stakeholder-role" required>
+                        <option value="">Select Role</option>
+                        <option value="manufacturer">Manufacturer</option>
+                        <option value="distributor">Distributor</option>
+                        <option value="retailer">Retailer</option>
+                        <option value="logistics">Logistics Provider</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Register Stakeholder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="blockchain-panel" style="display: none;">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Blockchain Explorer</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Block #</th>
+                            <th>Timestamp</th>
+                            <th>Transactions</th>
+                            <th>Previous Hash</th>
+                            <th>Hash</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blockchain-blocks">
+                        <!-- Blocks will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card form-section">
+            <div class="form-title">Add New Product to Blockchain</div>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-id-input">Product ID</label>
+                    <input type="text" id="product-id-input" required placeholder="e.g., PROD002">
+                </div>
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" required placeholder="Product Name">
+                </div>
+                <div class="form-group">
+                    <label for="product-manufacturer">Manufacturer</label>
+                    <select id="product-manufacturer" required>
+                        <option value="">Select Manufacturer</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product-location">Manufacturing Location</label>
+                    <input type="text" id="product-location" required placeholder="e.g., Shanghai, China">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Register Product</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card form-section">
+            <div class="form-title">Record Supply Chain Event</div>
+            <form id="event-form">
+                <div class="form-group">
+                    <label for="event-product-id">Product ID</label>
+                    <input type="text" id="event-product-id" required placeholder="e.g., PROD001">
+                </div>
+                <div class="form-group">
+                    <label for="event-action">Action</label>
+                    <select id="event-action" required>
+                        <option value="">Select Action</option>
+                        <option value="MANUFACTURED">Manufactured</option>
+                        <option value="SHIPPED">Shipped</option>
+                        <option value="RECEIVED">Received</option>
+                        <option value="QUALITY_CHECKED">Quality Checked</option>
+                        <option value="OWNERSHIP_TRANSFER">Transfer Ownership</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-location">Location</label>
+                    <input type="text" id="event-location" required placeholder="e.g., Los Angeles Port, USA">
+                </div>
+                <div class="form-group">
+                    <label for="event-handler">Handler (Stakeholder ID)</label>
+                    <select id="event-handler" required>
+                        <option value="">Select Handler</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group" id="to-stakeholder-group" style="display: none;">
+                    <label for="to-stakeholder">Transfer To</label>
+                    <select id="to-stakeholder" required>
+                        <option value="">Select Stakeholder</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Record Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script src="./script.js"></script>
+</html>
